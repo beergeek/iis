@@ -1,0 +1,6 @@
+fixtures:
+  symlinks:
+    iis: "#{source_dir}"
+  repositories:
+    dsc:
+      repo: "git@github.com:puppetlabs/puppetlabs-dsc.git"

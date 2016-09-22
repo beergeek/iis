@@ -1,0 +1,21 @@
+{
+  "name": "beergeek/iis",
+  "version": "0.0.1",
+  "author": "beergeek",
+  "license": "Apache-2.0",
+  "summary": "Module to manage IIS",
+  "source": "https://github.com/beergeek/iis",
+  "operatingsystem_support": [
+    {
+    "operatingsystem": "windows",
+    "operatingsystemrelease": [
+        "Server 2008 R2",
+        "Server 2012",
+        "Server 2012 R2",
+      ]
+    }
+  ],
+  "tags": ["iis","windows"],
+  "dependencies": [
+    {"name": "puppetlabs/dsc", "version_requirement": ">= 1.0.0"}
+  ]
