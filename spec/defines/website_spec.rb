@@ -20,7 +20,7 @@ describe 'iis::website', :type => :define do
       is_expected.to contain_dsc_file('C:\\inetpub\\test.me.com').with({
         'dsc_ensure'          => 'Present',
         'dsc_destinationpath' => 'C:\\inetpub\\test.me.com',
-        'dsc_recurse'         => true,
+        'dsc_recurse'         => false,
         'dsc_type'            => 'Directory',
         'before'              => 'Dsc_xwebapppool[test.me.com]',
       })
