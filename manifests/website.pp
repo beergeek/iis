@@ -18,11 +18,17 @@ define iis::website (
   }
 
   if $ensure == 'Present' {
+    if $website_source == undef {
+      $recurse = false,
+    } else {
+      $recurse = true
+    }
+    
     dsc_file { $website_path:
       dsc_ensure          => 'Present',
       dsc_sourcepath      => $website_source,
       dsc_destinationpath => $website_path,
-      dsc_recurse         => true,
+      dsc_recurse         => $recurse,
       dsc_type            => 'Directory',
       before              => Dsc_xwebapppool[$pool_name],
     }
