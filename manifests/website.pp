@@ -19,11 +19,11 @@ define iis::website (
 
   if $ensure == 'Present' {
     if $website_source == undef {
-      $recurse = false,
+      $recurse = false
     } else {
       $recurse = true
     }
-    
+
     dsc_file { $website_path:
       dsc_ensure          => 'Present',
       dsc_sourcepath      => $website_source,
