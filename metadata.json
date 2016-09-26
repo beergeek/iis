@@ -1,6 +1,6 @@
 {
   "name": "beergeek/iis",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "author": "beergeek",
   "license": "Apache-2.0",
   "summary": "Module to manage IIS",
@@ -17,5 +17,6 @@
   ],
   "tags": ["iis","windows"],
   "dependencies": [
-    {"name": "puppetlabs/dsc", "version_requirement": ">= 1.0.0"}
+    {"name": "puppetlabs/dsc", "version_requirement": ">= 1.0.0"},
+    {"name": "puppetlabs/acl", "version_requirement": ">= 1.1.0"}
   ]
