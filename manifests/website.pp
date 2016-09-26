@@ -10,7 +10,7 @@ define iis::website (
   Boolean $manage_website_path     = true,
   Integer $restart_mem_max         = 1000,
   Integer $restart_priv_mem_max    = 1000,
-  Hash $binding_info               = { protocol => 'HTTP', port => 80 }
+  Array[Hash] $binding_info        = [{ protocol => 'HTTP', port => 80, hostname => $title }]
 ) {
 
   if !defined(Class['iis']) {
@@ -51,7 +51,7 @@ define iis::website (
     dsc_name          => $website_name,
     dsc_state         => $state,
     dsc_physicalpath  => $website_path,
-    dsc_bindinginfo   => [ $binding_info ]
+    dsc_bindinginfo   => $binding_info,
   }
 
 }
