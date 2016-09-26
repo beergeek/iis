@@ -4,3 +4,5 @@ fixtures:
   repositories:
     dsc:
       repo: "git@github.com:puppetlabs/puppetlabs-dsc.git"
+    acl:
+      repo: "git@github.com:puppetlabs/puppetlabs-acl.git"
