@@ -37,14 +37,21 @@ describe 'iis::website', :type => :define do
               'rights'      => ['read','execute'],
               'perm_type'   => 'allow',
               'child_types' => 'all',
-              'affects'     => 'all'
+              'affects'     => 'all',
             },
             {
               'identity'    => 'IIS APPPOOL\test.me.com',
               'rights'      => ['read','execute'],
               'perm_type'   => 'allow',
               'child_types' => 'all',
-              'affects'     => 'all'
+              'affects'     => 'all',
+            },
+            {
+              'identity'    => 'BUILTIN\Users',
+              'rights'      => ['read'],
+              'perm_type'   => 'allow',
+              'child_types' => 'all',
+              'affects'     => 'all',
             }
           ],
           'inherit_parent_permissions' => false,

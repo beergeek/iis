@@ -43,15 +43,22 @@ define iis::website (
           rights      => ['read','execute'],
           perm_type   => 'allow',
           child_types => 'all',
-          affects     => 'all'
+          affects     => 'all',
         },
         {
           identity    => "IIS APPPOOL\\${pool_name}",
           rights      => ['read','execute'],
           perm_type   => 'allow',
           child_types => 'all',
-          affects     => 'all'
+          affects     => 'all',
         },
+        {
+          identity    => 'BUILTIN\Users',
+          rights      => ['read'],
+          perm_type   => 'allow',
+          child_types => 'all',
+          affects     => 'all',
+        }
       ],
       inherit_parent_permissions => false,
     }
