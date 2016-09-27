@@ -3,6 +3,7 @@
 define iis::website (
   String $website_name                  = $title,
   String $pool_name                     = $title,
+  String $directory_owner               = 'S-1-5-17',
   Optional[String] $app_name            = undef,
   Enum['Present','Absent'] $ensure      = 'Present',
   Enum['Present','Absent'] $app_ensure  = 'Present',
@@ -27,13 +28,32 @@ define iis::website (
       $recurse = true
     }
 
-    dsc_file { $website_path:
-      dsc_ensure          => 'Present',
-      dsc_sourcepath      => $website_source,
-      dsc_destinationpath => $website_path,
-      dsc_recurse         => $recurse,
-      dsc_type            => 'Directory',
-      before              => Dsc_xwebapppool[$pool_name],
+    file { $website_path:
+      ensure  => directory,
+      source  => $website_source,
+      recurse => $recurse,
+      before  => Dsc_xwebapppool[$pool_name],
+    }
+
+    acl { $website_path:
+      purge       => true,
+      permissions => [
+        {
+          identity    => $directory_owner,
+          rights      => ['read','execute'],
+          perm_type   => 'allow',
+          child_types => 'all',
+          affects     => 'all'
+        },
+        {
+          identity    => "IIS APPPOOL\\${pool_name}",
+          rights      => ['read','execute'],
+          perm_type   => 'allow',
+          child_types => 'all',
+          affects     => 'all'
+        },
+      ],
+      inherit_parent_permissions => false,
     }
 
     dsc_xwebapppool { $pool_name:

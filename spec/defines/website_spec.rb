@@ -22,12 +22,32 @@ describe 'iis::website', :type => :define do
 
     it do is_expected.to contain_class('iis') end
     it do
-      is_expected.to contain_dsc_file('C:\\inetpub\\test.me.com').with({
-        'dsc_ensure'          => 'Present',
-        'dsc_destinationpath' => 'C:\\inetpub\\test.me.com',
-        'dsc_recurse'         => false,
-        'dsc_type'            => 'Directory',
-        'before'              => 'Dsc_xwebapppool[test.me.com]',
+      is_expected.to contain_file('C:\\inetpub\\test.me.com').with({
+        'ensure'  => 'directory',
+        'recurse' => false,
+        'before'  => 'Dsc_xwebapppool[test.me.com]',
+      })
+    end
+    it do
+      is_expected.to contain_acl('C:\\inetpub\\test.me.com').with({
+          'purge'           => true,
+          'permissions'     => [
+            {
+              'identity'    => 'S-1-5-17',
+              'rights'      => ['read','execute'],
+              'perm_type'   => 'allow',
+              'child_types' => 'all',
+              'affects'     => 'all'
+            },
+            {
+              'identity'    => 'IIS APPPOOL\test.me.com',
+              'rights'      => ['read','execute'],
+              'perm_type'   => 'allow',
+              'child_types' => 'all',
+              'affects'     => 'all'
+            }
+          ],
+          'inherit_parent_permissions' => false,
       })
     end
     it do
