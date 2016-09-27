@@ -63,6 +63,7 @@ define iis::website (
       dsc_name          => $app_name,
       dsc_physicalpath  => $app_path,
       dsc_webapppool    => $pool_name,
+      dsc_website       => $website_name,
       require           => Dsc_xwebsite[$website_name],
     }
   }
