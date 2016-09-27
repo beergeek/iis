@@ -1,16 +1,19 @@
 #
 
 define iis::website (
-  String $website_name             = $title,
-  String $pool_name                = $title,
-  Enum['Present','Absent'] $ensure = 'Present',
-  Enum['Stopped','Started'] $state = 'Started',
-  String $website_path             = "C:\\inetpub\\${website_name}",
-  Optional[String] $website_source = undef,
-  Boolean $manage_website_path     = true,
-  Integer $restart_mem_max         = 1000,
-  Integer $restart_priv_mem_max    = 1000,
-  Array[Hash] $binding_info        = [{ protocol => 'HTTP', port => 80, hostname => $title }]
+  String $website_name                  = $title,
+  String $pool_name                     = $title,
+  Optional[String] $app_name            = undef,
+  Enum['Present','Absent'] $ensure      = 'Present',
+  Enum['Present','Absent'] $app_ensure  = 'Present',
+  Enum['Stopped','Started'] $state      = 'Started',
+  String $website_path                  = "C:\\inetpub\\${website_name}",
+  String $app_path                      = "C:\\inetpub\\${app_name}",
+  Optional[String] $website_source      = undef,
+  Boolean $manage_website_path          = true,
+  Integer $restart_mem_max              = 1000,
+  Integer $restart_priv_mem_max         = 1000,
+  Array[Hash] $binding_info             = [{ protocol => 'HTTP', port => 80, hostname => $title }]
 ) {
 
   if !defined(Class['iis']) {
@@ -52,6 +55,15 @@ define iis::website (
     dsc_state         => $state,
     dsc_physicalpath  => $website_path,
     dsc_bindinginfo   => $binding_info,
+  }
+
+  if $app_name {
+    dsc_xwebapplication { $app_name:
+      dsc_ensure        => $app_ensure,
+      dsc_name          => $app_name,
+      dsc_physicalpath  => $app_path,
+      dsc_webapppool    => $pool_name,
+    }
   }
 
 }

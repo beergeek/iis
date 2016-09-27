@@ -14,6 +14,11 @@ describe 'iis::website', :type => :define do
     let :title do
       'test.me.com'
     end
+    let :params do
+      {
+        :app_name => 'test.me.com'
+      }
+    end
 
     it do is_expected.to contain_class('iis') end
     it do
@@ -46,8 +51,14 @@ describe 'iis::website', :type => :define do
         'dsc_physicalpath'  => 'C:\\inetpub\\test.me.com'
       })
     end
-
-
+    it do
+      is_expected.to contain_dsc_xwebapplication('test.me.com').with({
+        'dsc_ensure'        => 'Present',
+        'dsc_name'          => 'test.me.com',
+        'dsc_webapppool'    => 'test.me.com',
+        'dsc_physicalpath'  => 'C:\\inetpub\\test.me.com'
+      })
+    end
   end
 
 
