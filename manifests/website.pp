@@ -36,7 +36,7 @@ define iis::website (
     }
 
     acl { $website_path:
-      purge       => true,
+      purge       => false,
       permissions => [
         {
           identity    => $directory_owner,

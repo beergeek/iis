@@ -30,7 +30,7 @@ describe 'iis::website', :type => :define do
     end
     it do
       is_expected.to contain_acl('C:\\inetpub\\test.me.com').with({
-          'purge'           => true,
+          'purge'           => false,
           'permissions'     => [
             {
               'identity'    => 'S-1-5-17',
