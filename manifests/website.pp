@@ -58,7 +58,7 @@ define iis::website (
           perm_type   => 'allow',
           child_types => 'all',
           affects     => 'all',
-        }
+        },
       ],
       inherit_parent_permissions => false,
     }
