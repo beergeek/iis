@@ -1,8 +1,5 @@
 # Beergeek-iis
 
-## NOTE
-This module uses the `puppetlabs-dsc` module and therefore requires `Windows Management Framework 5`.
-
 #### Table of Contents
 
 1. [Module Description](#module-description)
@@ -19,6 +16,10 @@ This module uses the `puppetlabs-dsc` module and therefore requires `Windows Man
 This module enables the IIS feature and managed websites with application pool and web applications.
 
 The `iis` class will also enable `ASP`, `ASP.Net4.5`, `IIS Management Console` and `IIS Scripting Tools`.
+
+## Requirements
+
+This module uses the `puppetlabs-dsc` module and therefore requires `Windows Management Framework 5`.
 
 ## Usage
 This module works with IIS7 and greater.
