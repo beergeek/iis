@@ -1,3 +1,5 @@
+# The class enables the role of `IIS`, `ASP`, `ASP.Net4.5`, `IIS Management Console` and `IIS Scripting Tools`.
+#
 #
 
 class iis (

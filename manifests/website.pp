@@ -1,4 +1,18 @@
+# The defined type manages websites, website directory, app pools, and web applications.
 #
+# @param website_name [String] The name of the website. Defaults to `$title`.
+# @param pool_name [String] The of application pool. Defaults to `$title`.
+# @param directory_owner [String] SID or name of website directory owner. Defaults to `S-1-5-17`.
+# @param app_name [Optional[String]] Name of web application. Default is `undef`.
+# @param ensure [Enum['Present','Absent']] Determine if website is created or removed. Default is `Present`.
+# @param app_ensure [Enum['Present','Absent']] Determine if web application is created or removed, if `app_name` is used. Default to `Present`.
+# @param state [Enum['Stopped','Started']] Determine if website is started or stopped. Default is `Started`.
+# @param website_path [String] Path for website. Defaults to `C:\\inetpub\\${website_name}`.
+# @param app_path [String] Path for web application. Defaults to `C:\\inetpub\\${website_name}`.
+# @param website_source [Optional[String]] Source for website to be used in `file` resource.  Will recurse if provided. Default is `undef`.
+# @param restart_mem_max [Integer] The limit for restart memory for Application Pool. Default is `1000`.
+# @param restart_priv_mem_max [Integer] The limit for the restart private memory for the Application Pool. Default is `1000`.
+# @param binding_hash [Array[Hash]] Array of hashes for binding information for website. Default is `[{ protocol => 'HTTP', port => 80, hostname => $title }]`.
 
 define iis::website (
   String $website_name                  = $title,
@@ -11,7 +25,6 @@ define iis::website (
   String $website_path                  = "C:\\inetpub\\${website_name}",
   String $app_path                      = "C:\\inetpub\\${app_name}",
   Optional[String] $website_source      = undef,
-  Boolean $manage_website_path          = true,
   Integer $restart_mem_max              = 1000,
   Integer $restart_priv_mem_max         = 1000,
   Array[Hash] $binding_hash             = [{ protocol => 'HTTP', port => 80, hostname => $title }]
