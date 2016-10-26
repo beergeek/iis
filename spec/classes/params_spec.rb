@@ -1,7 +1,7 @@
 require 'spec_helper'
 describe 'iis::params' do
 
-  context "fails on non-Winbloz" do
+  context "fails on non-Windows" do
     let :facts do
       {
         'kernel'  => 'linux',
