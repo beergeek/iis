@@ -20,3 +20,4 @@
     {"name": "puppetlabs/dsc", "version_requirement": ">= 1.0.0"},
     {"name": "puppetlabs/acl", "version_requirement": ">= 1.1.0"}
   ]
+}
