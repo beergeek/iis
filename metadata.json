@@ -1,6 +1,6 @@
 {
   "name": "beergeek/iis",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "beergeek",
   "license": "Apache-2.0",
   "summary": "Module to manage IIS",
@@ -11,7 +11,7 @@
     "operatingsystemrelease": [
         "Server 2008 R2",
         "Server 2012",
-        "Server 2012 R2",
+        "Server 2012 R2"
       ]
     }
   ],
@@ -20,3 +20,4 @@
     {"name": "puppetlabs/dsc", "version_requirement": ">= 1.0.0"},
     {"name": "puppetlabs/acl", "version_requirement": ">= 1.1.0"}
   ]
+}
