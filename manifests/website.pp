@@ -15,19 +15,19 @@
 # @param binding_hash [Array[Hash]] Array of hashes for binding information for website. Default is `[{ protocol => 'HTTP', port => 80, hostname => $title }]`.
 
 define iis::website (
-  String $website_name                  = $title,
-  String $pool_name                     = $title,
-  String $directory_owner               = 'S-1-5-17',
-  Optional[String] $app_name            = undef,
-  Enum['Present','Absent'] $ensure      = 'Present',
-  Enum['Present','Absent'] $app_ensure  = 'Present',
-  Enum['Stopped','Started'] $state      = 'Started',
-  String $website_path                  = "C:\\inetpub\\${website_name}",
-  String $app_path                      = "C:\\inetpub\\${app_name}",
-  Optional[String] $website_source      = undef,
-  Integer $restart_mem_max              = 1000,
-  Integer $restart_priv_mem_max         = 1000,
-  Array[Hash] $binding_hash             = [{ protocol => 'HTTP', port => 80, hostname => $title }]
+  String $website_name                                     = $title,
+  String $pool_name                                        = $title,
+  String $directory_owner                                  = 'S-1-5-17',
+  Optional[String] $app_name                               = undef,
+  Enum['Present','present','Absent','absent'] $ensure      = 'Present',
+  Enum['Present','present','Absent','absent'] $app_ensure  = 'Present',
+  Enum['Stopped','stopped','Started','started'] $state     = 'Started',
+  String $website_path                                     = "C:\\inetpub\\${website_name}",
+  String $app_path                                         = "C:\\inetpub\\${app_name}",
+  Optional[String] $website_source                         = undef,
+  Integer $restart_mem_max                                 = 1000,
+  Integer $restart_priv_mem_max                            = 1000,
+  Array[Hash] $binding_hash                                = [{ protocol => 'HTTP', port => 80, hostname => $title }]
 ) {
 
   if !defined(Class['iis']) {

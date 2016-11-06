@@ -2,3 +2,4 @@
 .bundler
 spec/fixtures
 Gemfile.lock
+pkg
