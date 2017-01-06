@@ -31,7 +31,7 @@ define iis::website (
 ) {
 
   if !defined(Class['iis']) {
-    fail("The IIS module must be in the catalog")
+    fail('The IIS module must be in the catalog')
   }
 
   if $ensure == 'Present' {
@@ -49,31 +49,31 @@ define iis::website (
     }
 
     acl { $website_path:
-      purge       => false,
-      permissions => [
+      purge                       => false,
+      permissions                 => [
         {
-          identity    => $directory_owner,
-          rights      => ['read','execute'],
-          perm_type   => 'allow',
-          child_types => 'all',
-          affects     => 'all',
+          identity                => $directory_owner,
+          rights                  => ['read','execute'],
+          perm_type               => 'allow',
+          child_types             => 'all',
+          affects                 => 'all',
         },
         {
-          identity    => "IIS APPPOOL\\${pool_name}",
-          rights      => ['read','execute'],
-          perm_type   => 'allow',
-          child_types => 'all',
-          affects     => 'all',
+          identity                => "IIS APPPOOL\\${pool_name}",
+          rights                  => ['read','execute'],
+          perm_type               => 'allow',
+          child_types             => 'all',
+          affects                 => 'all',
         },
         {
-          identity    => 'BUILTIN\Users',
-          rights      => ['read'],
-          perm_type   => 'allow',
-          child_types => 'all',
-          affects     => 'all',
+          identity                => 'BUILTIN\Users',
+          rights                  => ['read'],
+          perm_type               => 'allow',
+          child_types             => 'all',
+          affects                 => 'all',
         },
       ],
-      inherit_parent_permissions => false,
+      inherit_parent_permissions  => false,
     }
 
     dsc_xwebapppool { $pool_name:
