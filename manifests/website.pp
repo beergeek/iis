@@ -27,7 +27,9 @@ define iis::website (
   String $website_path                                     = "C:\\inetpub\\${website_name}",
   Optional[String] $app_name                               = undef,
   Optional[String] $app_path                               = "C:\\inetpub\\${app_name}",
+  Optional[Hash] $website_acl_defaults                     = {},
   Optional[String] $website_source                         = undef,
+  Optional[Hash[String]] $website_directory_acl            = {},
 ) {
 
   if !defined(Class['iis']) {
@@ -48,32 +50,42 @@ define iis::website (
       before  => Dsc_xwebapppool[$pool_name],
     }
 
-    acl { $website_path:
-      purge                      => false,
-      permissions                => [
-        {
-          identity    => $directory_owner,
-          rights      => ['read','execute'],
-          perm_type   => 'allow',
-          child_types => 'all',
-          affects     => 'all',
-        },
-        {
-          identity    => "IIS APPPOOL\\${pool_name}",
-          rights      => ['read','execute'],
-          perm_type   => 'allow',
-          child_types => 'all',
-          affects     => 'all',
-        },
-        {
-          identity    => 'BUILTIN\Users',
-          rights      => ['read'],
-          perm_type   => 'allow',
-          child_types => 'all',
-          affects     => 'all',
-        },
-      ],
-      inherit_parent_permissions => false,
+    if $website_directory_acl {
+      $website_directory_acl.each |String $acl_name, Hash $acl_data|{
+        acl { $acl_name:
+          * => $acl_data,;
+          default:
+            * => $website_acl_defaults,;
+        }
+      }
+    } else {
+      acl { $website_path:
+        inherit_parent_permissions => false,
+        purge                      => false,
+        permissions                => [
+          {
+            identity    => $directory_owner,
+            rights      => ['read','execute'],
+            perm_type   => 'allow',
+            child_types => 'all',
+            affects     => 'all',
+          },
+          {
+            identity    => "IIS APPPOOL\\${pool_name}",
+            rights      => ['read','execute'],
+            perm_type   => 'allow',
+            child_types => 'all',
+            affects     => 'all',
+          },
+          {
+            identity    => 'BUILTIN\Users',
+            rights      => ['read'],
+            perm_type   => 'allow',
+            child_types => 'all',
+            affects     => 'all',
+          },
+        ],
+      }
     }
 
     dsc_xwebapppool { $pool_name:
