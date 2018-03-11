@@ -3,6 +3,6 @@ fixtures:
     iis: "#{source_dir}"
   repositories:
     dsc:
-      repo: "git@github.com:puppetlabs/puppetlabs-dsc.git"
+      repo: "https://github.com/puppetlabs/puppetlabs-dsc.git"
     acl:
-      repo: "git@github.com:puppetlabs/puppetlabs-acl.git"
+      repo: "https://github.com/puppetlabs/puppetlabs-acl.git"

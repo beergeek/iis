@@ -56,62 +56,125 @@ This will create a website called `mysite.com.au`, an application pool called `m
 * [`iis::website`](#iiswebsite) Manages websites, application pools and web applications.
 
 ### Parameters
+### iis::params
 
-####iis
-no parameters
+PRIVATE CLASS: do not call directly
 
-####iis::website
-#####`website_name`
 
-**(required)** Name of the website.  Defaults to `$title`
+## Defined types
 
-#####`pool_name`
+### iis::website
 
-**(required)** The of application pool. Defaults to `$title`.
+The defined type manages websites, website directory, app pools, and web applications.
 
-#####`directory_owner`
 
-**(required)** SID or name of website directory owner. Defaults to `S-1-5-17`.
+#### Parameters
 
-#####`app_name`
+The following parameters are available in the `iis::website` defined type.
 
-Name of web application. If `undef` the web application is not created. Default is `undef`.
+##### `app_ensure`
 
-#####`ensure`
+Data type: `Enum['Present','present','Absent','absent']`
 
-**(required)** Determine if website is created or removed. Valid values are `Present` or `Absent`.  Default is `Present`.
+Determine if web application is created or removed, if `app_name` is used. Default to `Present`.
 
-#####`app_ensure`
+Default value: 'Present'
 
-**(required)** Determine if web application is created or removed, if `app_name` is used. Valid values are `Present` or `Absent`. Default to `Present`.
+##### `app_path`
 
-#####`state`
+Data type: `String`
 
-**(required)** Determine if website is started or stopped. Valid values are `Stopped` or `Started`. Default is `Started`.
+Path for web application. Defaults to `C:\\inetpub\\${website_name}`.
 
-#####`website_path`
+Default value: "C:\\inetpub\\${app_name}"
 
-**(required)** Path for website. Defaults to `C:\\inetpub\\${website_name}`.
+##### `binding_hash`
 
-#####`app_path`
+Data type: `Array[Hash]`
 
-**(required)** Path for web application. Defaults to `C:\\inetpub\\${website_name}`.
+Array of hashes for binding information for website. Default is `[{ protocol => 'HTTP', port => 80, hostname => $title }]`.
 
-#####`website_source`
+Default value: [{ protocol => 'HTTP', port => 80, hostname => $title }]
+
+##### `directory_owner`
+
+Data type: `String`
+
+SID or name of website directory owner. Defaults to `S-1-5-17`.
+
+Default value: 'S-1-5-17'
+
+##### `ensure`
+
+Data type: `Enum['Present','present','Absent','absent']`
+
+Determine if website is created or removed. Default is `Present`.
+
+Default value: 'Present'
+
+##### `pool_name`
+
+Data type: `String`
+
+The of application pool. Defaults to `$title`.
+
+Default value: $title
+
+##### `restart_mem_max`
+
+Data type: `Integer`
+
+The limit for restart memory for Application Pool. Default is `1000`.
+
+Default value: 1000
+
+##### `restart_priv_mem_max`
+
+Data type: `Integer`
+
+The limit for the restart private memory for the Application Pool. Default is `1000`.
+
+Default value: 1000
+
+##### `state`
+
+Data type: `Enum['Stopped','stopped','Started','started']`
+
+Determine if website is started or stopped. Default is `Started`.
+
+Default value: 'Started'
+
+##### `website_name`
+
+Data type: `String`
+
+The name of the website. Defaults to `$title`.
+
+Default value: $title
+
+##### `website_source`
+
+Data type: `Optional[String]`
 
 Source for website to be used in `file` resource.  Will recurse if provided. Default is `undef`.
 
-#####`restart_mem_max`
+Default value: `undef`
 
-**(required)** The limit for restart memory for Application Pool. Default is `1000`.
+##### `app_name`
 
-#####`restart_priv_mem_max`
+Data type: `Optional[String]`
 
-**(required)** The limit for the restart private memory for the Application Pool. Default is `1000`.
+Name of web application. Default is `undef`.
 
-#####`binding_hash`
+Default value: `undef`
 
-**(required)** Array of hashes for binding information for website. Default is `[{ protocol => 'HTTP', port => 80, hostname => $title }]`.
+##### `website_path`
+
+Data type: `String`
+
+Path for website. Defaults to `C:\\inetpub\\${website_name}`.
+
+Default value: "C:\\inetpub\\${website_name}"
 
 ## Limitations
 

@@ -1,4 +1,4 @@
-#
+# PRIVATE CLASS: do not call directly
 class iis::params {
 
   if $::os['family'] != 'windows' {

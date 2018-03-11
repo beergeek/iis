@@ -1,24 +1,23 @@
 require 'spec_helper'
 describe 'iis::params' do
-
-  context "fails on non-Windows" do
+  context 'fails on non-Windows' do
     let :facts do
       {
-        'kernel'  => 'linux',
-        'os'      => { 'family' => 'RedHat' }
+        kernel: 'linux',
+        os:     { 'family' => 'RedHat' },
       }
     end
 
     it 'is_expected.to explode' do
-      expect { catalogue }.to raise_error(Puppet::Error, /This class is only for Windows/)
+      expect { catalogue }.to raise_error(Puppet::Error, %r{This class is only for Windows})
     end
   end
 
-  context "defaults" do
+  context 'defaults' do
     let :facts do
       {
-        'kernel'  => 'windows',
-        'os'      => { 'family' => 'windows' }
+        kernel: 'windows',
+        os:     { 'family' => 'windows' },
       }
     end
 
