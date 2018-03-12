@@ -1,19 +1,19 @@
 # The defined type manages websites, website directory, app pools, and web applications.
 #
-# @param app_ensure Determine if web application is created or removed, if `app_name` is used. Default to `Present`.
-# @param app_path Path for web application. Defaults to `C:\\inetpub\\${website_name}`.
-# @param binding_hash Array of hashes for binding information for website. Default is `[{ protocol => 'HTTP', port => 80, hostname =>
-# $title }]`.
-# @param directory_owner SID or name of website directory owner. Defaults to `S-1-5-17`.
-# @param ensure Determine if website is created or removed. Default is `Present`.
-# @param pool_name The of application pool. Defaults to `$title`.
-# @param restart_mem_max The limit for restart memory for Application Pool. Default is `1000`.
-# @param restart_priv_mem_max The limit for the restart private memory for the Application Pool. Default is `1000`.
-# @param state Determine if website is started or stopped. Default is `Started`.
-# @param website_name The name of the website. Defaults to `$title`.
-# @param website_source Source for website to be used in `file` resource.  Will recurse if provided. Default is `undef`.
-# @param app_name Name of web application. Default is `undef`.
-# @param website_path Path for website. Defaults to `C:\\inetpub\\${website_name}`.
+# @param app_ensure Determine if web application is created or removed, if `app_name` is used.
+# @param app_path Path for web application.
+# @param binding_hash Array of hashes for binding information for website.
+# @param directory_owner SID or name of website directory owner.
+# @param ensure Determine if website is created or removed.
+# @param pool_name The of application pool.
+# @param restart_mem_max The limit for restart memory for Application Pool.
+# @param restart_priv_mem_max The limit for the restart private memory for the Application Pool.
+# @param state Determine if website is started or stopped.
+# @param website_name The name of the website.
+# @param website_source Source for website to be used in `file` resource.  Will recurse if provided.
+# @param app_name Name of web application.
+# @param website_directory_acl A hash of the ACL for the website directory. Remember Puppet cannot explicitly manage inherited permissions.
+# @param website_path Path for website.
 define iis::website (
   Array[Hash] $binding_hash                                = [{ protocol => 'HTTP', port => 80, hostname => $title }],
   Enum['Present','present','Absent','absent'] $app_ensure  = 'Present',
@@ -27,8 +27,8 @@ define iis::website (
   String $website_path                                     = "C:\\inetpub\\${website_name}",
   Optional[String] $app_name                               = undef,
   Optional[String] $app_path                               = "C:\\inetpub\\${app_name}",
-  Optional[String] $website_source                         = undef,
   Optional[Hash] $website_directory_acl                    = undef,
+  Optional[String] $website_source                         = undef,
 ) {
 
   if !defined(Class['iis']) {

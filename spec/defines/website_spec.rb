@@ -127,14 +127,12 @@ describe 'iis::website' do
               'identity' => 'NT SERVICE\TrustedInstaller',
               'rights' => [ 'full' ],
               'affects' => 'self_only',
-              'is_inherited' => true,
             },
             {
               'identity' => 'NT SERVICE\TrustedInstaller',
               'rights' => [ 'full' ],
               'child_types' => 'containers',
               'affects' => 'children_only',
-              'is_inherited' => true,
             }
           ]
         },
@@ -150,15 +148,13 @@ describe 'iis::website' do
           {
             'identity'     => 'NT SERVICE\TrustedInstaller',
             'rights'       => %w[full],
-            'affects'      => 'self-only',
-            'is_inherited' => true
+            'affects'      => 'self_only',
           },
           {
             'identity'     => 'NT SERVICE\TrustedInstaller',
             'rights'       => %w[full],
             'child_types'  => 'containers',
             'affects'      => 'children_only',
-            'is_inherited' => true
           },
         ],
       )

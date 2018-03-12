@@ -50,15 +50,14 @@ This will create a website called `mysite.com.au`, an application pool called `m
 ## Reference
 
 ### Public Classes
-* [`iis`](#iis) Class to manage `IIS`, `ASP`, `ASP.Net4.5`, `IIS Management Console` and `IIS Scripting Tools`
+* [`iis`](#iis): The class enables the role of `IIS`, `ASP`, `ASP.Net4.5`, `IIS Management Console` and `IIS Scripting Tools`.
+## Defined types
+* [`iis::website`](#iiswebsite): The defined type manages websites, website directory, app pools, and web applications.
+## Classes
 
-### Defined Types
-* [`iis::website`](#iiswebsite) Manages websites, application pools and web applications.
+### iis
 
-### Parameters
-### iis::params
-
-PRIVATE CLASS: do not call directly
+The class enables the role of `IIS`, `ASP`, `ASP.Net4.5`, `IIS Management Console` and `IIS Scripting Tools`.
 
 
 ## Defined types
@@ -76,15 +75,15 @@ The following parameters are available in the `iis::website` defined type.
 
 Data type: `Enum['Present','present','Absent','absent']`
 
-Determine if web application is created or removed, if `app_name` is used. Default to `Present`.
+Determine if web application is created or removed, if `app_name` is used.
 
 Default value: 'Present'
 
 ##### `app_path`
 
-Data type: `String`
+Data type: `Optional[String]`
 
-Path for web application. Defaults to `C:\\inetpub\\${website_name}`.
+Path for web application.
 
 Default value: "C:\\inetpub\\${app_name}"
 
@@ -92,7 +91,7 @@ Default value: "C:\\inetpub\\${app_name}"
 
 Data type: `Array[Hash]`
 
-Array of hashes for binding information for website. Default is `[{ protocol => 'HTTP', port => 80, hostname => $title }]`.
+Array of hashes for binding information for website.
 
 Default value: [{ protocol => 'HTTP', port => 80, hostname => $title }]
 
@@ -100,7 +99,7 @@ Default value: [{ protocol => 'HTTP', port => 80, hostname => $title }]
 
 Data type: `String`
 
-SID or name of website directory owner. Defaults to `S-1-5-17`.
+SID or name of website directory owner.
 
 Default value: 'S-1-5-17'
 
@@ -108,7 +107,7 @@ Default value: 'S-1-5-17'
 
 Data type: `Enum['Present','present','Absent','absent']`
 
-Determine if website is created or removed. Default is `Present`.
+Determine if website is created or removed.
 
 Default value: 'Present'
 
@@ -116,7 +115,7 @@ Default value: 'Present'
 
 Data type: `String`
 
-The of application pool. Defaults to `$title`.
+The of application pool.
 
 Default value: $title
 
@@ -124,7 +123,7 @@ Default value: $title
 
 Data type: `Integer`
 
-The limit for restart memory for Application Pool. Default is `1000`.
+The limit for restart memory for Application Pool.
 
 Default value: 1000
 
@@ -132,7 +131,7 @@ Default value: 1000
 
 Data type: `Integer`
 
-The limit for the restart private memory for the Application Pool. Default is `1000`.
+The limit for the restart private memory for the Application Pool.
 
 Default value: 1000
 
@@ -140,7 +139,7 @@ Default value: 1000
 
 Data type: `Enum['Stopped','stopped','Started','started']`
 
-Determine if website is started or stopped. Default is `Started`.
+Determine if website is started or stopped.
 
 Default value: 'Started'
 
@@ -148,7 +147,7 @@ Default value: 'Started'
 
 Data type: `String`
 
-The name of the website. Defaults to `$title`.
+The name of the website.
 
 Default value: $title
 
@@ -156,7 +155,7 @@ Default value: $title
 
 Data type: `Optional[String]`
 
-Source for website to be used in `file` resource.  Will recurse if provided. Default is `undef`.
+Source for website to be used in `file` resource.  Will recurse if provided.
 
 Default value: `undef`
 
@@ -164,7 +163,15 @@ Default value: `undef`
 
 Data type: `Optional[String]`
 
-Name of web application. Default is `undef`.
+Name of web application.
+
+Default value: `undef`
+
+##### `website_directory_acl`
+
+Data type: `Optional[Hash]`
+
+A hash of the ACL for the website directory. Remember Puppet cannot explicitly manage inherited permissions.
 
 Default value: `undef`
 
@@ -172,10 +179,9 @@ Default value: `undef`
 
 Data type: `String`
 
-Path for website. Defaults to `C:\\inetpub\\${website_name}`.
+Path for website.
 
 Default value: "C:\\inetpub\\${website_name}"
-
 ## Limitations
 
 Tested on Windows 2012r2
