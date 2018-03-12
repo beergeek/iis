@@ -27,9 +27,8 @@ define iis::website (
   String $website_path                                     = "C:\\inetpub\\${website_name}",
   Optional[String] $app_name                               = undef,
   Optional[String] $app_path                               = "C:\\inetpub\\${app_name}",
-  Optional[Hash] $website_acl_defaults                     = {},
   Optional[String] $website_source                         = undef,
-  Optional[Hash[String]] $website_directory_acl            = {},
+  Optional[Hash] $website_directory_acl                    = undef,
 ) {
 
   if !defined(Class['iis']) {
@@ -50,13 +49,9 @@ define iis::website (
       before  => Dsc_xwebapppool[$pool_name],
     }
 
-    if $website_directory_acl {
-      $website_directory_acl.each |String $acl_name, Hash $acl_data|{
-        acl { $acl_name:
-          * => $acl_data,;
-          default:
-            * => $website_acl_defaults,;
-        }
+    if $website_directory_acl {#or ! empty($website_directory_acl) {
+      acl { $website_path:
+        * => $website_directory_acl,;
       }
     } else {
       acl { $website_path:

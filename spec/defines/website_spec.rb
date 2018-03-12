@@ -108,4 +108,60 @@ describe 'iis::website' do
       )
     end
   end
+
+  context 'with different permission on website directory' do
+    let :facts do
+      {
+        kernel: 'windows',
+        os:     { 'family' => 'windows' },
+      }
+    end
+    let :params do
+      {
+        website_directory_acl: {
+          group: 'S-1-5-18',
+          inherit_parent_permissions: true,
+          owner: 'S-1-5-18',
+          permissions: [
+            {
+              'identity' => 'NT SERVICE\TrustedInstaller',
+              'rights' => [ 'full' ],
+              'affects' => 'self_only',
+              'is_inherited' => true,
+            },
+            {
+              'identity' => 'NT SERVICE\TrustedInstaller',
+              'rights' => [ 'full' ],
+              'child_types' => 'containers',
+              'affects' => 'children_only',
+              'is_inherited' => true,
+            }
+          ]
+        },
+      }
+    end
+
+    it do
+      is_expected.to contain_acl('C:\inetpub\puppet.puppet.vm').with(
+        'group'                      => 'S-1-5-18',
+        'inherit_parent_permissions' => true,
+        'owner'                      => 'S-1-5-18',
+        'permissions'                => [
+          {
+            'identity'     => 'NT SERVICE\TrustedInstaller',
+            'rights'       => %w[full],
+            'affects'      => 'self-only',
+            'is_inherited' => true
+          },
+          {
+            'identity'     => 'NT SERVICE\TrustedInstaller',
+            'rights'       => %w[full],
+            'child_types'  => 'containers',
+            'affects'      => 'children_only',
+            'is_inherited' => true
+          },
+        ],
+      )
+    end
+  end
 end

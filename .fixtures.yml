@@ -6,3 +6,5 @@ fixtures:
       repo: "https://github.com/puppetlabs/puppetlabs-dsc.git"
     acl:
       repo: "https://github.com/puppetlabs/puppetlabs-acl.git"
+    stdlib:
+      repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"

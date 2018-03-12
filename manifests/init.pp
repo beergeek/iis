@@ -2,7 +2,11 @@
 #
 #
 class iis (
-) inherits iis::params {
+) {
+
+  if $::os['family'] != 'windows' {
+    fail("This class is only for Windows, not for ${::os['family']}")
+  }
 
   dsc_windowsfeature { 'IIS':
     dsc_ensure => 'Present',
